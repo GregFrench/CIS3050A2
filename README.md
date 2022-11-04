@@ -1,4 +1,4 @@
-#CIS*3050 Assignment 2
+# CIS*3050 Assignment 2
 
 Name: Greg French
 Student ID: 1084574

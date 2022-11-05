@@ -1,13 +1,22 @@
 #! /bin/bash
-export PATH=.:$PATH
-
 USER=gfrench
 terminate=1
-if [ ! -p /tmp/server-$USER-inputfifo ] ; then 
-    mkfifo /tmp/server-$USER-inputfifo
+pipe=/tmp/server-$USER-inputfifo
+if [ ! -p $pipe ] ; then 
+    mkfifo $pipe
 fi
 
-echo "Starting up `cat /proc/cpuinfo | grep processor | wc -l` processing units"
+numWorkers=`cat /proc/cpuinfo | grep processor | wc -l`
+
+echo "Starting up ${numWorkers} processing units"
+
+i=0
+while [ $i -ne $numWorkers ]
+do
+    i=$(($i+1))
+    ./worker.sh $i &
+done
+
 echo "Ready for processing : place tasks into /tmp/server-${USER}-fifo"
 
 while [ $terminate != 0 ]
@@ -16,4 +25,4 @@ do
         echo $line
         # terminate=0
     fi
-done </tmp/server-$USER-inputfifo
+done <$pipe

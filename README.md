@@ -13,3 +13,4 @@ Todo:
 - get mgServer to run without sh as ./mgServer
 - get submitJob to run as submitJob rather than ./submitJob.sh
 - assume that mgServer is run before run tests?
+- todo: shutdown and status

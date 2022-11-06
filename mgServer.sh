@@ -42,7 +42,11 @@ while [ $terminate != 0 ]
 do
     if read line; then
         echo $line
-        echo $line > /tmp/worker-1-$USER-inputfifo;
-        # terminate=0
+        if [[ "$line" == "shutdown" ]]; then
+            sigterm_handler
+            terminate=0
+        else
+            echo $line > /tmp/worker-1-$USER-inputfifo;
+        fi
     fi
 done <$pipe

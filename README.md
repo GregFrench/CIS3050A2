@@ -14,3 +14,6 @@ Todo:
 - get submitJob to run as submitJob rather than ./submitJob.sh
 - assume that mgServer is run before run tests?
 - todo: shutdown and status
+- wait for worker to finish before sending it new message
+- add permissions to the pipes
+- Should the server write command back to itself if it can't execute a command because all workers are busy?

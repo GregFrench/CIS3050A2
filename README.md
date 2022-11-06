@@ -14,3 +14,4 @@ Todo:
 - get submitJob to run as submitJob rather than ./submitJob.sh
 - assume that mgServer is run before run tests?
 - todo: shutdown and status
+- Add cmd to commands from submitJob and then parse it out in mgServer

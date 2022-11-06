@@ -15,10 +15,17 @@ fi
 
 echo "ready" > /tmp/worker-$ID-$USER-inputfifo;
 
+count=0
 while [ $terminate != 0 ]
 do
     if read line; then
-        echo $line > /tmp/worker-$USER.$ID.log
+        if [ $count -eq 0 ]; then
+            $line > /tmp/worker-$USER.$ID.log
+        else
+            $line >> /tmp/worker-$USER.$ID.log
+        fi
+
+        count=$(($count+1))
         echo "ready" > /tmp/worker-$ID-$USER-inputfifo;
     fi
 done </tmp/worker-$ID-$USER-inputfifo

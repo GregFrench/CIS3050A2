@@ -25,6 +25,7 @@ fi
 
 numWorkers=`cat /proc/cpuinfo | grep processor | wc -l`
 arr=()
+worker=0
 
 echo "Starting up ${numWorkers} processing units"
 
@@ -46,7 +47,9 @@ do
             sigterm_handler
             terminate=0
         else
-            echo $line > /tmp/worker-1-$USER-inputfifo;
+            echo $line > /tmp/worker-$(($worker+1))-$USER-inputfifo;
+            worker=$(($worker+1))
+            worker=$(($worker%$numWorkers))
         fi
     fi
 done <$pipe

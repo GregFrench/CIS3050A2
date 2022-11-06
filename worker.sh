@@ -13,20 +13,23 @@ if [ ! -p /tmp/worker-$ID-$USER-inputfifo ] ; then
     mkfifo /tmp/worker-$ID-$USER-inputfifo
 fi
 
-echo "ready" > /tmp/worker-$ID-$USER-inputfifo &
-
 count=0
 while [ $terminate != 0 ]
 do
     if read line; then
-        if [ "$line" != "ready" ]; then
-            if [ $count -eq 0 ]; then
-                $line > /tmp/worker-$USER.$ID.log
-            else
-                $line >> /tmp/worker-$USER.$ID.log
-            fi
-            count=$(($count+1))
-            echo "ready" > /tmp/worker-$ID-$USER-inputfifo &
+        if [ "$line" == "shutdown" ]; then
+            rm /tmp/worker-$ID-$USER-inputfifo
+            exit 0
         fi
+
+        if [ $count -eq 0 ]; then
+            $line > /tmp/worker-$USER.$ID.log
+        else
+            $line >> /tmp/worker-$USER.$ID.log
+        fi
+
+        count=$(($count+1))
+
+        echo "ready ${ID}" > /tmp/server-${USER}-inputfifo &
     fi
 done </tmp/worker-$ID-$USER-inputfifo

@@ -47,7 +47,7 @@ do
             sigterm_handler
             terminate=0
         else
-            echo $line > /tmp/worker-$(($worker+1))-$USER-inputfifo;
+            echo $line | cut -d " " -f2- > /tmp/worker-$(($worker+1))-$USER-inputfifo;
             worker=$(($worker+1))
             worker=$(($worker%$numWorkers))
         fi

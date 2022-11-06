@@ -16,6 +16,6 @@ if [ "$res" == "status" ]; then
 elif [ "$res" == "shutdown" ]; then
     echo $res > /tmp/server-$USER-inputfifo;
 else
-    #res="CMD ${res}"
+    res="CMD ${res}"
     echo $res > /tmp/server-$USER-inputfifo;
 fi

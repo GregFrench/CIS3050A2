@@ -11,4 +11,11 @@ do
     res+="$var "
 done
 
-echo $res > /tmp/server-$USER-inputfifo;
+if [ "$res" == "status" ]; then
+    echo $res > /tmp/server-$USER-inputfifo;
+elif [ "$res" == "shutdown" ]; then
+    echo $res > /tmp/server-$USER-inputfifo;
+else
+    #res="CMD ${res}"
+    echo $res > /tmp/server-$USER-inputfifo;
+fi

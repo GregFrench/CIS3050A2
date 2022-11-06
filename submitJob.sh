@@ -6,14 +6,21 @@ exec 3<> /tmp/server-$USER-inputfifo;
 
 res=""
 
+count=0
 for var in "$@"
 do
-    res+="$var "
+    if [[ count -gt 0 ]]; then
+        res+="$var "
+    else
+        res+="$var"
+    fi
+
+    count=$(($count+1))
 done
 
-if [ "$res" == "status" ]; then
+if [[ "$res" == "status" ]]; then
     echo $res > /tmp/server-$USER-inputfifo;
-elif [ "$res" == "shutdown" ]; then
+elif [[ "$res" == "shutdown" ]]; then
     echo $res > /tmp/server-$USER-inputfifo;
 else
     res="CMD ${res}"

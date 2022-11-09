@@ -22,7 +22,6 @@ To run tests (Assuming mgServer is running):
 Overview of how the program works along with the details for each test case are located in the A2report.pdf file.
 
 Todo:
-- todo: shutdown and status (with -x and -s)
 - wait for worker to finish before sending it new message
 - add permissions to the pipes
 - Should the server write command back to itself if it can't execute a command because all workers are busy?

@@ -15,9 +15,11 @@ do
     count=$(($count+1))
 done
 
-if [[ "$res" == "status" ]]; then
+if [[ "$res" == "-s" ]]; then
+    res="status"
     echo $res > /tmp/server-$USER-inputfifo;
-elif [[ "$res" == "shutdown" ]]; then
+elif [[ "$res" == "-x" ]]; then
+    res="shutdown"
     echo $res > /tmp/server-$USER-inputfifo;
 else
     res="CMD $res"

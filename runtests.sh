@@ -1,2 +1,2 @@
 ./submitJob.sh ls -l &
-./submitJob.sh ./timedCountdown.sh 30 &
+./submitJob.sh ./timedCountdown.sh 10 &

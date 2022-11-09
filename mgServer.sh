@@ -16,14 +16,14 @@ numProcessed=0
 echo "Starting up ${numWorkers} processing units"
 
 shutdownHandler() {
-    echo "handler called"
     i=0
     while [ $i -ne $numWorkers ]
     do
         i=$(($i+1))
         echo "shutdown" > /tmp/worker-$i-$USER-inputfifo &
-        echo "test"
     done
+
+    rm /tmp/server-gfrench-inputfifo
 
     exit 1
 }

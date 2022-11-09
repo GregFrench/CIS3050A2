@@ -30,6 +30,8 @@ do
 
         count=$(($count+1))
 
-        echo "ready ${ID}" > /tmp/server-${USER}-inputfifo &
+        if [[ -p /tmp/server-${USER}-inputfifo ]]; then
+            echo "ready ${ID}" > /tmp/server-${USER}-inputfifo &
+        fi
     fi
 done </tmp/worker-$ID-$USER-inputfifo

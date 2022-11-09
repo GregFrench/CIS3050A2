@@ -5,7 +5,7 @@ terminate=1
 pipe=/tmp/server-$USER-inputfifo
 
 if [ ! -p $pipe ] ; then 
-    mkfifo $pipe
+    mkfifo -m 077 $pipe
 fi
 
 numWorkers=`cat /proc/cpuinfo | grep processor | wc -l`

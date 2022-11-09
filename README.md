@@ -20,3 +20,4 @@ Todo:
 - add permissions to the pipes
 - Should the server write command back to itself if it can't execute a command because all workers are busy?
 - Add data structure to store commands that need to be executed in a worker when it becomes free
+- Add 0077 permissions to fifo's

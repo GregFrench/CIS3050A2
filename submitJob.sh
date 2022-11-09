@@ -1,18 +1,15 @@
 #! /bin/bash
 
 USER=gfrench
-
-exec 3<> /tmp/server-$USER-inputfifo;
-
 res=""
 
 count=0
 for var in "$@"
 do
-    if [[ count -gt 0 ]]; then
-        res+="$var "
+    if (( count > 0 )); then
+        res="$res $var"
     else
-        res+="$var"
+        res="$var"
     fi
 
     count=$(($count+1))
@@ -23,6 +20,6 @@ if [[ "$res" == "status" ]]; then
 elif [[ "$res" == "shutdown" ]]; then
     echo $res > /tmp/server-$USER-inputfifo;
 else
-    res="CMD ${res}"
+    res="CMD $res"
     echo $res > /tmp/server-$USER-inputfifo;
 fi

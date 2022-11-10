@@ -26,7 +26,7 @@ shutdownHandler() {
 
     rm /tmp/server-gfrench-inputfifo
 
-    exit 1
+    exit 0
 }
 
 processJob() {

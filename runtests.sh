@@ -15,15 +15,18 @@
 # Fifth test case
 ./submitJob.sh ls | sort -r --ignore-case &
 
+# Sixth test case
+./submitJob.sh ./timedCountdown.sh 5 &
+
 echo "Waiting for jobs to finish..."
 
 # sleep for 12 seconds
 sleep 12
 
-# Sixth test case
+# Seventh test case
 ./submitJob.sh -s &
 
 sleep 1
 
-# Seventh test case
+# Eighth test case
 ./submitJob.sh -x &

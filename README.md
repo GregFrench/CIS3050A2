@@ -13,10 +13,13 @@ chmod +x timedCountdown.sh
 To run the server:
 ./mgServer.sh
 
-To submit a job:
+To submit a job (In a new terminal):
 ./submitJob.sh ls -l
 
 To run tests (Assuming mgServer is running):
 ./runtests.sh
 
 Overview of how the program works along with the details for each test case are located in the A2report.pdf file.
+
+Todo:
+- Add 6 more test cases to round it out at 10

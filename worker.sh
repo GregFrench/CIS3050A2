@@ -10,7 +10,7 @@ if [ $# -eq 0 ]
 fi
 
 if [ ! -p /tmp/worker-$ID-$USER-inputfifo ] ; then 
-    mkfifo -m 700 /tmp/worker-$ID-$USER-inputfifo
+    mkfifo -m 770 /tmp/worker-$ID-$USER-inputfifo
 fi
 
 count=0

@@ -4,6 +4,7 @@ USER=gfrench
 terminate=1
 pipe=/tmp/server-$USER-inputfifo
 
+# create the server fifo if none exists
 if [ ! -p $pipe ] ; then 
     mkfifo -m 770 $pipe
 fi
@@ -16,6 +17,7 @@ numProcessed=0
 
 echo "Starting up ${numWorkers} processing units"
 
+# handles graceful shutdown of the system
 shutdownHandler() {
     i=0
     while [ $i -ne $numWorkers ]
@@ -29,6 +31,7 @@ shutdownHandler() {
     exit 0
 }
 
+# process a job when a worker is ready
 processJob() {
     # retrieve first item of queue
     item=${queue[0]}
@@ -44,6 +47,7 @@ processJob() {
 
 trap 'shutdownHandler' SIGINT
 
+# spawn the workers
 i=0
 while [ $i -ne $numWorkers ]
 do
@@ -54,6 +58,7 @@ done
 
 echo "Ready for processing : place tasks into /tmp/server-${USER}-fifo"
 
+# waits for messages from the server fifo
 while [ $terminate != 0 ]
 do
     if read line; then
@@ -61,11 +66,14 @@ do
         set -- $str
         firstWord=$1
 
+        # handles the shutdown command
         if [[ "$line" == "shutdown" ]]; then
             terminate=0
+        # handles the status command
         elif [[ "$firstWord" == "status" ]]; then
             echo "Number of workers: ${numWorkers}"
             echo "Number of tasks processed: ${numProcessed}"
+        # handles message from a worker when it has finished their task
         elif [[ "$firstWord" == "ready" ]]; then
             ID=$(echo $line | cut -d " " -f2-)
             workers[$(($ID-1))]=1
@@ -74,6 +82,7 @@ do
             if [ ${#queue[@]} -gt 0 ]; then
                 processJob
             fi
+        # handles executable command messages
         else
             queue+=("$line")
 
